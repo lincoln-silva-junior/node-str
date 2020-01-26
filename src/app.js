@@ -14,6 +14,9 @@ const router = express.Router();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// MODELS
+const Product = require('./models/product');
+
 // ROUTES
 const indexRoute = require('./routes/index-route');
 const productRoute = require('./routes/product-route');

@@ -16,10 +16,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // MODELS
 const Product = require('./models/product');
+const Customer = require('./models/customer');
+const Order = require('./models/order');
 
 // ROUTES
 const indexRoute = require('./routes/index-route');
 const productRoute = require('./routes/product-route');
+const customerRoute = require('./routes/customer-route');
+const orderRoute = require('./routes/order-route');
 
 // DATABASE
 mongoose.connect('mongodb://jlincoln:ioNDaRa59@ds054619.mlab.com:54619/node-str'
@@ -27,5 +31,7 @@ mongoose.connect('mongodb://jlincoln:ioNDaRa59@ds054619.mlab.com:54619/node-str'
 
 app.use('/', indexRoute);
 app.use('/products', productRoute);
+app.use('/customers', customerRoute);
+app.use('/orders', orderRoute);
 
 module.exports = app;

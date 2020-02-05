@@ -3,6 +3,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const config = require('./config');
 
 // ****************************
 
@@ -26,7 +27,7 @@ const customerRoute = require('./routes/customer-route');
 const orderRoute = require('./routes/order-route');
 
 // DATABASE
-mongoose.connect('mongodb://jlincoln:ioNDaRa59@ds054619.mlab.com:54619/node-str'
+mongoose.connect(config.connectionString
                 , { useNewUrlParser: true,  useUnifiedTopology: true });
 
 app.use('/', indexRoute);

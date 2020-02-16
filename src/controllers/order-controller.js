@@ -3,6 +3,7 @@
 const ValidationContract = require('../validators/fluent-validator');
 const repository = require('../repositories/order-repository');
 const guid = require('guid');
+const AuthService = require('../services/auth-service');
 
 exports.get = async(req, res, next) => {
     try {
@@ -18,16 +19,21 @@ exports.get = async(req, res, next) => {
 exports.post = async(req, res, next) => {   
 
     try {
+        // Recupera o Token
+        const token = req.body.token || req.query.token || req.headers['x-access-token']
+        // Decodifica o Token        
+        const data = await AuthService.decodeToken(token);
+
         await repository.create({
-            customer: req.body.customer,
+            customer: data.id,
             number: guid.raw().substring(0,6),
             items: req.body.items
         });
         res.status(201).send({
             message: 'Pedido cadastrado com sucesso!'
         });
-    } catch (e) {
-        res.status(500).send({
+    } catch (e) {        
+        res.status(500).send({            
             message: 'Falha ao processar sua requisição'
         });
     }        
